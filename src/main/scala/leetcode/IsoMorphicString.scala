@@ -18,22 +18,22 @@ class IsoMorphicString (){
       string1.zip(string2).map{
         case(char1,char2) => {
           (myMap.get(char1), myMap.find(_._2 == char2)) match{
-            case (None,None) => myMap.foreach(println);myMap.put(char1,char2); true
+            case (None,None) => myMap.put(char1,char2); true
             case (None,Some(c))  => if(c.equals(char2)) true else false
-            case (Some(c),None) if (c != char2) => false
-            case _ => true
+            case (Some(c),None) => if (c != char2) false else true
+            case (Some(char1),Some(char2)) => if(char1 == char2._2) true else false
           }
         }
-      }
-    }.reduceLeft(isEverythingTrue(_,_))
+      }.reduceLeft(isEverythingTrue(_,_))
+    }
   }
 
 }
 object IsoMorphicString{
   def main(args: Array[String]): Unit = {
     val iso = new IsoMorphicString()
-    val a : String = "badc"
-    val b :String= "baba"
+    val a : String = "paper"
+    val b :String= "title"
     println(iso.isIsomorphic(a,b))
   }
 }
